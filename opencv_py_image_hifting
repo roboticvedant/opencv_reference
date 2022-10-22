@@ -1,0 +1,22 @@
+import cv2 as cv
+import numpy as np
+
+img = cv.imread("data/my_photo.jpg")#path to image
+cv.imshow("Image" , img) # original image
+
+
+# Translation
+def translate(img,x,y):
+    transMat = np.float32([[1,0,x],[0,1,y]]) # creates a matrix to which translation is applied
+    dimen = (img.shape[1],img.shape[0])
+    return cv.warpAffine(img, transMat,dimen)
+trans_img = translate(img,100,50)
+cv.imshow("Translated image",trans_img) # shifted image
+cv.waitKey(0)
+
+# So this basically shows how to shift or translate an image
+# for translation: 
+# x>0 will shift to right 
+# x<0 will shift to left
+#y>0 shift it up 
+# y<0 will shift it down
