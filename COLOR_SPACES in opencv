@@ -1,0 +1,27 @@
+import cv2 as cv
+import matplotlib.pyplot as plt
+
+img = cv.imread("data/park.jpg")
+cv.imshow("Original",img)
+#plt.imshow(img)
+#plt.show()
+#Color Spaces in OPENCV
+
+#BGR to Gray image
+gray= cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+cv.imshow("Gray",gray)
+
+#Convert to HSV hue saturation volume fomat
+hsv_img = cv.cvtColor(img,cv.COLOR_BGR2HSV)
+cv.imshow("HSV IMAGE",hsv_img)
+
+# BGR to L*a*b
+LAB_img = cv.cvtColor(img,cv.COLOR_BGR2LAB)
+cv.imshow("LAB IMAGE",LAB_img)
+
+# BGR to RGB
+rgb_img = cv.cvtColor(img,cv.COLOR_BGR2RGB)
+cv.imshow("RGB IMAGE",rgb_img)
+
+
+cv.waitKey(0)
