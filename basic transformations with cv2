@@ -1,0 +1,24 @@
+import cv2 as cv
+import numpy as np
+img = cv.imread("data/park.jpg")
+cv.imshow("Original",img)
+# Changing Image to grayscale to understand pixel intensity rather than channels BGR
+img_gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+cv.imshow("Gray Image",img_gray)
+
+#Bluring Images to remove extra information/details aka noise !
+blur = cv.GaussianBlur(img,(3,3),cv.BORDER_DEFAULT) # SECOND ARGUMENT IS KERNEL SIZE NOTE IT SHOULD BE ALWAYS Odd
+# Bigger the kernel size more the blurring effect
+cv.imshow("Blurred Image",blur)
+
+#Edge Cascade with Canny
+canny_img = cv.Canny(img,500,500) # lower para 2 and 3 more edge found NOTE that's info overload and we dont need it dued but if w use so high values thats info loss.
+cv.imshow("Canny1",canny_img)
+
+#Dilating Images
+dilated = cv.dilate(canny_img,(3,3),iterations=2)
+cv.imshow("Dilaated",dilated)
+
+# to get back structure from dialated image  erode it
+
+cv.waitKey(0)
