@@ -1,0 +1,39 @@
+import cv2 as cv
+import numpy as np
+
+
+img = cv.imread("data/park.jpg")
+blank = np.zeros(img.shape,dtype='uint8')
+cv.imshow("Original",img)
+cv.imshow("Blank",blank)
+# Changing Image to grayscale to understand pixel intensity rather than channels BGR
+img_gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+cv.imshow("Gray Image",img_gray)
+
+#Bluring Images to remove extra information/details aka noise !
+blur = cv.GaussianBlur(img,(3,3),cv.BORDER_DEFAULT) # SECOND ARGUMENT IS KERNEL SIZE NOTE IT SHOULD BE ALWAYS Odd
+# Bigger the kernel size more the blurring effect
+cv.imshow("Blurred Image",blur)
+
+#Edge Cascade with Canny
+canny_img = cv.Canny(blur,125,175) # lower para 2 and 3 more edge found NOTE that's info overload and we dont need it dued but if w use so high values thats info loss.
+cv.imshow("Canny1",canny_img)
+# Find Contours Method
+contours1, hierarchies1 = cv.findContours(canny_img,cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE)
+print(len(contours1))
+
+
+
+#Other method to find contours is by using threshold method
+ret, thresh = cv.threshold(img_gray,125,255,cv.THRESH_BINARY) # max value =125 if bright pixel then set to 255
+
+
+# Find Contours Method
+contours2, hierarchies2 = cv.findContours(thresh,cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE)
+print(f'{len(contours2)} contours by thresh')
+cv.imshow("Thresh Image",thresh)
+cv.drawContours(blank,contours2,-1,(255,0,0),1)
+cv.imshow("Drawn Stuff",blank)
+
+
+cv.waitKey(0)
