@@ -1,0 +1,18 @@
+import cv2 as cv
+cap = cv.VideoCapture(0)
+haar_cascade=cv.CascadeClassifier('data/haarcascade_frontalface_alt2.xml')
+while True:
+    ret, frame = cap.read()
+    cv.imshow("Output", frame)
+    gray = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
+    face_rect = haar_cascade.detectMultiScale(gray, 1.1, 4)
+    for(x,y,w,h) in face_rect:
+        cv.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),thickness=2)
+        cv.imshow("Output", frame)
+
+
+    if cv.waitKey(1) & 0xFF == ord('q'):
+        break
+cap.release()
+cv.destroyAllWindows()
+
