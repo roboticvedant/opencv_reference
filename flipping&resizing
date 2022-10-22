@@ -1,0 +1,21 @@
+import cv2 as cv
+import numpy as np
+
+img = cv.imread("data/cat.jpg")#path to image
+cv.imshow("Image" , img) # original image
+
+# Resizing and Flipping Image
+
+#Resize
+resized_img = cv.resize(img, (100,500)) # second argument first one is width (x-axis) and second is height(inverted y-axis)wrt mat
+cv.imshow("Resized", resized_img)
+
+
+#Flipping
+flip_img = cv.flip(img,0)
+cv.imshow("flipped image",flip_img)
+cv.waitKey(0)
+# the parameter mode in flip:
+# 1 ---> would vetically flip viz mirror image
+# 0 ---> would horizontally flip viz water image
+# -1 ---> would flip in bot sense viz water image of mirror image
